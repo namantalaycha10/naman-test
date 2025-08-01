@@ -1,7 +1,7 @@
-name: <+pipeline.variables.namePrefix>
+name: naman-test-main
 replicas: 1
 createNamespace: true
-namespace: <+infra.namespace>
+namespace: default
 
 image: harness/todolist-sample:128
 
