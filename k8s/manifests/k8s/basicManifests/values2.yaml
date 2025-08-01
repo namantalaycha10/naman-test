@@ -1,7 +1,7 @@
 name: naman-test-main
 replicas: 1
 createNamespace: true
-namespace: default
+namespace: naman-test
 
 image: harness/todolist-sample:128
 
