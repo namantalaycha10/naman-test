@@ -1,0 +1,6 @@
+apiVersion: v2
+name: shared-lib
+description: shared library
+type: library
+
+version: 1.0.0

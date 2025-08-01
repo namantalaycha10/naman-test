@@ -1,0 +1,4 @@
+harnessApiVersion: '1.0'
+type: AZURE_ARTIFACTS_PAT
+azureDevopsUrl: https://dev.azure.com/garvit-test
+pat: gcpkms:garvit-test-azure_AZURE_ARTIFACTS_PAT_pat

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-deployment
+  namespace: default
+spec:
+  template :
+    spec:
+      containers:
+        - name: the-container
+          image: <+artifact.image>
+#tzgs
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-deployment
+  namespace: default
+spec:
+  replicas: 1

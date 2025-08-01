@@ -1,0 +1,118 @@
+pipeline:
+    name: kustomizeDevEnv
+    identifier: kustomizeDevEnv
+    projectIdentifier: naman
+    orgIdentifier: default
+    tags: {}
+    stages:
+        - stage:
+              name: stage2
+              identifier: stage2
+              description: ""
+              type: Deployment
+              spec:
+                  serviceConfig:
+                      serviceRef: svc1
+                      serviceDefinition:
+                          type: Kubernetes
+                          spec:
+                              variables: []
+                              manifests:
+                                  - manifest:
+                                        identifier: kustomizeDevEnv
+                                        type: Kustomize
+                                        spec:
+                                            store:
+                                                type: Github
+                                                spec:
+                                                    connectorRef: account.namantest
+                                                    gitFetchType: Branch
+                                                    folderPath: kustomize-templating/overlays/prod/
+                                                    branch: master
+                                            pluginPath: ""
+                                            skipResourceVersioning: false
+                                  - manifest:
+                                        identifier: KustomizePatches
+                                        type: KustomizePatches
+                                        spec:
+                                            store:
+                                                type: Github
+                                                spec:
+                                                    connectorRef: gitNaman
+                                                    gitFetchType: Branch
+                                                    paths:
+                                                        - kustomize/multipleEnv/environments/production/patch1.yaml
+                                                        - kustomize/multipleEnv/environments/production/patch2.yaml
+                                                    branch: master
+                              artifacts:
+                                  primary:
+                                      type: DockerRegistry
+                                      spec:
+                                          connectorRef: account.HarnessTodolist
+                                          imagePath: harness/todolist-sample
+                                          tag: <+input>
+                  infrastructure:
+                      environmentRef: env1
+                      infrastructureDefinition:
+                          type: KubernetesDirect
+                          spec:
+                              connectorRef: k8s
+                              namespace: example
+                              releaseName: release-<+INFRA_KEY>
+                      allowSimultaneousDeployments: false
+                  execution:
+                      steps:
+                          - stepGroup:
+                                name: Canary Deployment
+                                identifier: canaryDepoyment
+                                steps:
+                                    - step:
+                                          name: Canary Deployment
+                                          identifier: canaryDeployment
+                                          type: K8sCanaryDeploy
+                                          timeout: 10m
+                                          spec:
+                                              instanceSelection:
+                                                  type: Count
+                                                  spec:
+                                                      count: 1
+                                              skipDryRun: false
+                                    - step:
+                                          name: Canary Delete
+                                          identifier: canaryDelete
+                                          type: K8sCanaryDelete
+                                          timeout: 10m
+                                          spec: {}
+                                rollbackSteps:
+                                    - step:
+                                          name: Canary Delete
+                                          identifier: rollbackCanaryDelete
+                                          type: K8sCanaryDelete
+                                          timeout: 10m
+                                          spec: {}
+                          - stepGroup:
+                                name: Primary Deployment
+                                identifier: primaryDepoyment
+                                steps:
+                                    - step:
+                                          name: Rolling Deployment
+                                          identifier: rollingDeployment
+                                          type: K8sRollingDeploy
+                                          timeout: 10m
+                                          spec:
+                                              skipDryRun: false
+                                rollbackSteps:
+                                    - step:
+                                          name: Rolling Rollback
+                                          identifier: rollingRollback
+                                          type: K8sRollingRollback
+                                          timeout: 10m
+                                          spec: {}
+                      rollbackSteps: []
+              tags: {}
+              failureStrategies:
+                  - onFailure:
+                        errors:
+                            - AllErrors
+                        action:
+                            type: StageRollback

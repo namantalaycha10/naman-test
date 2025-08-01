@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: KUBERNETES_CLUSTER
+continuousEfficiencyConfig:
+  continuousEfficiencyEnabled: false
+delegateSelectors:
+- ec2-nbc-test-delegate
+skipValidation: false
+useKubernetesDelegate: true

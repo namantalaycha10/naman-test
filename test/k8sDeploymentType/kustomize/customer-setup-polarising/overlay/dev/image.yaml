@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranetng-finance
+spec:
+  selector:
+    matchLabels:
+      app: intranetng-finance-app
+  template:
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: docker-polarising-com
+      containers:
+      - name: intranetng-finance-app
+        image: <+artifact.image>
+        imagePullPolicy: Always

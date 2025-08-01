@@ -1,0 +1,14 @@
+#!/bin/bash
+# Skip the config file name argument.
+shift
+today=`date +%F`
+echo "
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: the-map
+data:
+  today: $today
+  altGreeting: "$1"
+  enableRisky: "$2"
+"

@@ -1,0 +1,7 @@
+resources:
+- resources/secrets.yaml
+- resources/service.yaml
+- resources/deployment.yaml
+
+patchesStrategicMerge:
+- patches/inline.yaml

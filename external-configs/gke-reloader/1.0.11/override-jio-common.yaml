@@ -1,0 +1,7 @@
+config:
+  core:
+    lazy_load_plugins: "False"
+    load_default_connections: "False"
+    load_examples: "False"
+  kubernetes_executor:
+    api_client_retry_configuration: '{ "total": 12, "backoff_factor": 0.5 }'

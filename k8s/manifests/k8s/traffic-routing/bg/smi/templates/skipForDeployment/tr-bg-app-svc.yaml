@@ -1,0 +1,12 @@
+# harness.io/skip-file-for-deploy
+apiVersion: v1
+kind: Service
+metadata:
+  name: tr-bg-app-svc-root
+spec:
+  selector:
+    app: tr-bg-app
+  ports:
+    - name: http
+      port: 6060
+      targetPort: 6060

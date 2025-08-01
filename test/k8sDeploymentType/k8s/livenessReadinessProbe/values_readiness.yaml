@@ -1,0 +1,10 @@
+readinessProbe:
+  exec:
+    command:
+    - test
+    - "<+stage.variables.readinessStatus>"
+    - =
+    - "success"
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 2

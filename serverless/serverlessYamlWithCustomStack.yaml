@@ -1,0 +1,18 @@
+service: serviceCustomStack
+frameworkVersion: '2.50.0'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stackName: customStackServerless
+
+package:
+  artifact: <+artifact.path>
+
+functions:
+  customStack:
+    handler: com.serverless.Handler
+    events:
+      - httpApi:
+          path: /time
+          method: get

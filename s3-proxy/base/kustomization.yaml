@@ -1,0 +1,7 @@
+namespace: app-infra
+
+resources:
+  - s3-proxy.yaml
+
+commonLabels:
+  owner: tractable

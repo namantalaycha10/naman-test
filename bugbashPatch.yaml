@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kustomize-<+pipeline.variables.deploymentName>-deployment
+  namespace: k8s-local-custom-bg
+spec:
+  template:
+    metadata:
+      labels:
+        patched: "true"
+    spec:
+      containers:
+        - name: nginx
+          image: <+artifact.image>

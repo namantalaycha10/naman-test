@@ -1,0 +1,5 @@
+resources:
+- ../base
+namePrefix: prod-
+commonAnnotations:
+  harness.io/primary-service: "true"

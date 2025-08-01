@@ -1,0 +1,12 @@
+# harness.io/skip-file-for-deploy
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-svc-root
+spec:
+  selector:
+    app: {{ .Values.name }}
+  ports:
+    - name: http
+      port: 6060
+      targetPort: 6060

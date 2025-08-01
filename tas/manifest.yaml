@@ -1,0 +1,8 @@
+applications:
+- name: ((NAME))
+  health-check-type: process
+  timeout: 20
+  memory: 750M
+  instances: 2
+  routes: 
+    - route: rishabh-b-test.apps.tas-qa-setup.com

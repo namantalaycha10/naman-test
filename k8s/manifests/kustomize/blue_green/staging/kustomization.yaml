@@ -1,0 +1,5 @@
+resources:
+- ../base
+namePrefix: staging-
+commonAnnotations:
+  harness.io/stage-service: "true"

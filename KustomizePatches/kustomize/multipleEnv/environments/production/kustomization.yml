@@ -1,0 +1,11 @@
+resources:
+  - ../../application
+namePrefix: nonpro-
+configMapGenerator:
+- name: example-config
+  namespace: default
+  #behavior: replace
+  files:
+    - configs/config.json
+patchesStrategicMerge:
+  - env.yaml

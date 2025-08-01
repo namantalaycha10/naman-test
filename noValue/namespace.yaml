@@ -1,0 +1,6 @@
+{{- if true}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: harness-example-137
+  {{- end}}

@@ -1,0 +1,6 @@
+commonLabels:
+  app: bg-test
+bases:
+- ./production
+- ./staging
+- ./deployment

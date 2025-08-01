@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deploy
+  labels:
+    app: nginx
+spec:
+  progressDeadlineSeconds: 30
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - name: liveness-port
+          containerPort: 8080
+          hostPort: 8080
+        startupProbe:
+          httpGet:
+            path: /nonexisting-endpoint
+            port: liveness-port
+          failureThreshold: 3
+          periodSeconds: 5

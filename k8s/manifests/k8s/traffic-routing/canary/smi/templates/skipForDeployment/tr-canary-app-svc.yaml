@@ -1,0 +1,12 @@
+# harness.io/skip-file-for-deploy
+apiVersion: v1
+kind: Service
+metadata:
+  name: tr-canary-app-svc-root
+spec:
+  selector:
+    app: tr-canary-app
+  ports:
+    - name: http
+      port: 6060
+      targetPort: 6060

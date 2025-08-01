@@ -1,0 +1,3 @@
+name: k8s-demo-1
+replicas: 0
+image: ${service.artifacts.primary.imagePath}:${service.artifacts.primary.tag}

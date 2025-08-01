@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: s3-proxy
+  annotations:
+    kubernetes.io/ingress.class: 'nginx-internal'
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+    nginx.ingress.kubernetes.io/auth-url: 'http://oauth2-proxy.auth.svc.cluster.local:4180/oauth2/auth'
+    nginx.ingress.kubernetes.io/auth-signin: 'https://auth.dev.k8s.tractable.io/oauth2/start?rd=https://$host$request_uri$is_args$args'
+    nginx.ingress.kubernetes.io/auth-response-headers: 'Authorization, X-Auth-Request-Email, X-Auth-Request-User, X-Forwarded-Access-Token, X-Forwa'
+spec:
+  tls:
+    - hosts:
+        - s3-proxy.dev.k8s.tractable.io
+      secretName: s3-proxy-tls
+  rules:
+    - host: s3-proxy.dev.k8s.tractable.io
+      http:
+        paths:
+          - path: /tractable-e2e-test-reports
+            backend:
+              serviceName: s3-proxy
+              servicePort: 3000

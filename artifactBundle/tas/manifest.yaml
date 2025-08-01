@@ -1,0 +1,8 @@
+applications:
+- name: ((NAME))
+  health-check-type: process
+  timeout: 20
+  memory: 750M
+  instances: ((instances))
+  routes: 
+    - route: ((ROUTE))

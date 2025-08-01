@@ -1,0 +1,22 @@
+name: <+stage.variables.resourceNamePrefix>
+replicas: 1
+
+image: <+artifact.image>
+#dockercfg: ${artifact.source.dockerconfig}
+
+createNamespace: true
+#namespace: ${infra.kubernetes.namespace}
+namespace: <+infra.namespace>
+
+env:
+  config:
+    key1: value1
+  secrets:
+    key2: value2
+
+overrides:
+  override1: default
+  override2: default
+  override3: default
+  override4: default
+  override5: default

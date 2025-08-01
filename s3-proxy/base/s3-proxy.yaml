@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: s3-proxy
+  name: s3-proxy
+spec:
+  selector:
+    matchLabels:
+      app: s3-proxy
+  template:
+    metadata:
+      labels:
+        app: s3-proxy
+      annotations:
+        iam.amazonaws.com/role: arn:aws:iam::635780325939:role/k8s/apps/dev/E2eTestsDevK8sRole
+    spec:
+      containers:
+        - name: s3-proxy
+          image: s3-proxy
+          ports:
+            - containerPort: 3000
+              name: http
+          command:
+            - yarn
+          args:
+            - run
+            - start
+          env:
+            - name: ALLOWED_S3_BUCKETS
+              value: tractable-e2e-test-reports
+            - name: KEY_PREFIXES
+              value: claim-review;cs;estimating;ingestion-e2e-tests
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s3-proxy
+  labels:
+    app: s3-proxy
+spec:
+  type: ClusterIP
+  ports:
+    - name: s3-proxy
+      port: 3000
+      targetPort: http
+      protocol: TCP
+  selector:
+    app: s3-proxy

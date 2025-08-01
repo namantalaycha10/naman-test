@@ -1,0 +1,14 @@
+resources:
+  - ../../application
+namePrefix: production-
+configMapGenerator:
+- name: example-config
+  namespace: example
+  #behavior: replace
+  files:
+    - configs/config.json
+patchesStrategicMerge:
+  - env.yaml
+images:
+- name: harness/todolist-sample
+  newTag: latest

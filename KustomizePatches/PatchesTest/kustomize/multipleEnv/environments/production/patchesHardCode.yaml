@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+  namespace: default
+spec:
+  template :
+    spec:
+      containers:
+        - name: example-app
+          image: library/nginx:latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+  namespace: default
+spec:
+  replicas: 2

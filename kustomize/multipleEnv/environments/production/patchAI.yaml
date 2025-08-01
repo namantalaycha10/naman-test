@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+  namespace: default
+spec:
+  template :
+    spec:
+      containers:
+        - name: example-app
+          image: ${artifact.metadata.image}
+
+#dsgvw
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+spec:
+  replicas: ${serviceVariable.replica}

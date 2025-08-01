@@ -1,0 +1,6 @@
+harnessApiVersion: '1.0'
+type: APP_DYNAMICS
+accountName: harness-test
+controllerUrl: https://harness-test.saas.appdynamics.com/controller
+password: gcpkms:pass
+username: raghu@harness.io

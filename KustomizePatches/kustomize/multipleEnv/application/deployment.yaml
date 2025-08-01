@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+  namespace: default
+  labels:
+    app: example-app
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: example-app
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: example-app
+    spec:
+      containers:
+      - name: example-app
+        image: harness/todolist-sample:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000

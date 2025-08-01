@@ -1,0 +1,2 @@
+trafficGeneratorSleepTimer: <+pipeline.variables.trafficGeneratorSleepTimer>
+name: <+stage.variables.resourceNamePrefix>

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todolist-{{.Release.Name}}
+  labels:
+    app: todolist-{{.Release.Name}}
+    release: {{.Release.Name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todolist-{{.Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: todolist-{{.Release.Name}}
+        release: {{.Release.Name}}
+    spec:
+      containers:
+      - name: todolist-{{.Release.Name}}
+        image: harness/todolist-sample:11
+        ports:
+        - containerPort: 80
+      - name: todolist-added-by-ach 
+        image: harness/todolist-sample:12
+        ports:
+        - containerPort: 81
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceName }}-{{ .Release.Name }}
+spec:
+  type: {{ .Values.serviceType }}
+  ports:
+  - port: 80
+  selector:
+    app: todolist-{{.Release.Name}}

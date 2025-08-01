@@ -1,0 +1,9 @@
+service: aws-nodejs-new-1-testing
+frameworkVersion: '2'
+
+provider:
+  name: aws
+
+functions:
+  hello:
+    image: <+artifact.image>

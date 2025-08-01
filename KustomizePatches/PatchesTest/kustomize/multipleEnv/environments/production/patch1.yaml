@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+  namespace: default
+spec:
+  template :
+    spec:
+      containers:
+        - name: example-app
+          image: <+serviceVariables.image>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+  namespace: default
+spec:
+  replicas: <+serviceVariables.replica>

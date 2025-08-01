@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-deployment
+spec:
+  replicas: 0
+  template:
+    spec:
+      containers:
+      - name: the-container
+        image: library/nginx
+        command: ["/hello",
+                  "--port=8080",
+                  "--date=$(THE_DATE)",
+                  "--enableRiskyFeature=$(ENABLE_RISKY)"]
+        ports:
+        - containerPort: 8080
+        env:
+        - name: THE_DATE
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: today
+        - name: ALT_GREETING
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: altGreeting
+        - name: ENABLE_RISKY
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: enableRisky

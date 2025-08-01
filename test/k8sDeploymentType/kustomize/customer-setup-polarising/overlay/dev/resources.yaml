@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranetng-finance
+spec:
+  selector:
+    matchLabels:
+      app: intranetng-finance-app
+  template:
+    spec:
+      containers:
+      - name: intranetng-finance-app
+        resources:
+          limits:
+            cpu: "2"
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 500Mi

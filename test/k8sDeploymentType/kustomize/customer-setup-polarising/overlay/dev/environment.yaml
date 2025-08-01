@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranetng-finance
+spec:
+  selector:
+    matchLabels:
+      app: intranetng-finance-app
+  template:
+    spec:
+      containers:
+      - name: intranetng-finance-app
+        env:
+        - name: FEIGN_CLIENT_LOGGING_LEVEL
+          value: NONE
+        - name: INTRANET_API_URL
+          value: http://intranet-api.api:8081/services/intranetapi/api
+        - name: JHIPSTER_MAIL_FROM
+          value: noreply@polarising.com
+        - name: LINK_BASEURLS_BACKOFFICE
+          value: https://backoffice.test.polarising.com
+        - name: LINK_BASEURLS_INTRANETNG_FINANCE
+          value: https://finance.harness.test.polarising.com
+        - name: LINK_BASEURLS_MYTIME
+          value: https://mytime.test.polarising.com
+        - name: LOGGING_LEVEL_COM_POLARISING_INTRANET_FINANCE
+          value: INFO
+        - name: SCHEDULER_CREATE_RECOGNITION_PERIOD
+          value: 0 */5 * * * ?
+        - name: SCHEDULER_SYNC_INTRANETAPI_DATA
+          value: 0 */15 * * * ?
+        - name: SCHEDULER_SYNC_TIMESHEET_DATA
+          value: 0 */2 * * * ?
+        - name: SCHEDULER_TIMESHEET_SYNC_STRATEGY
+          value: PREVIOUS
+        - name: SERVER_SERVLET_SESSION_TIMEOUT
+          value: 7d
+        - name: SERVER_USE_FORWARD_HEADERS
+          value: "true"
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: finance-credentials
+              key: SPRING_DATASOURCE_PASSWORD
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres.datastore:5432/finance-harness
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: finance-credentials
+              key: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_MAIL_HOST
+          value: mailhog.authentication
+        - name: SPRING_MAIL_PORT
+          value: "1025"
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod,api-docs
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_FEIGN_TOKEN_URI
+          value: https://id.test.polarising.com/auth/realms/polarising/protocol/openid-connect/token
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
+          value: https://id.test.polarising.com/auth/realms/polarising
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_FEIGN_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: finance-credentials
+              key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_FEIGN_CLIENT_ID
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_FEIGN_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: finance-credentials
+              key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_FEIGN_CLIENT_SECRET
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: finance-credentials
+              key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: finance-credentials
+              key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+        - name: _JAVA_OPTIONS
+          value: -Dlogging.level.com.polarising.intranet.finance=DEBUG

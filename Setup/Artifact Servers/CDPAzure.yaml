@@ -1,0 +1,4 @@
+harnessApiVersion: '1.0'
+type: AZURE_ARTIFACTS_PAT
+azureDevopsUrl: https://dev.azure.com/harness-devops-test
+pat: gcpkms:cdpazure

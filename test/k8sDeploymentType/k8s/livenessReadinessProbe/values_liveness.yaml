@@ -1,0 +1,9 @@
+livenessProbe:
+  exec:
+    command:
+    - test
+    - "<+stage.variables.livenessStatus>"
+    - =
+    - "success"
+  initialDelaySeconds: 60
+  periodSeconds: 60

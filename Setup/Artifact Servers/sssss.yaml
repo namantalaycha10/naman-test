@@ -1,0 +1,4 @@
+harnessApiVersion: '1.0'
+type: NEXUS
+url: https://nexus2.dev.harness.io
+version: 2.x

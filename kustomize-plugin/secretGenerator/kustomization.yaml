@@ -1,0 +1,9 @@
+secretGenerator:
+- name: mysecrets
+  envs:
+  - foo.env
+  files:
+  - longsecret.txt
+  literals:
+  - FRUIT=apple
+  - VEGETABLE=carrot

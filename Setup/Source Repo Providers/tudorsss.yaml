@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: GIT
+disableUserGitConfig: false
+keyAuth: false
+password: gcpkms:ghttt
+providerType: GITHUB
+url: https://github.com/wings-software/terraform
+urlType: REPO
+username: tudor.macari@harness.io

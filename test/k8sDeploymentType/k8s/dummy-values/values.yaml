@@ -1,0 +1,19 @@
+namespace:
+  name: <+infrastructure.namespace>
+  annotated: false
+
+releaseNo: <+pipeline.sequenceId>
+appLabel: <+service.variables.APP_LABEL>
+image: <+artifact.image>
+instances: <+steps.Map_infra_to_instance_count.output.outputVariables.count>
+maxUnavailable: 0
+maxSurge: 100%
+cpu: <+service.variables.cpu>
+memory: <+service.variables.memory>
+limitMemory: <+service.variables.limitMemory>
+podMemory: <+service.variables.podMemory>
+version: 1.0.<+regex.extract("^[0-9]+", <+artifact.tag>)>
+pathPrefix: <+pipeline.variables.pathPrefix>
+domainPrefix: <+pipeline.variables.domainPrefix>
+pathVersion: /1.0.<+regex.extract("^[0-9]+", <+artifact.tag>)>
+domainVersion: "v-1-0-<+regex.extract("^[0-9]+", <+artifact.tag>)>-"

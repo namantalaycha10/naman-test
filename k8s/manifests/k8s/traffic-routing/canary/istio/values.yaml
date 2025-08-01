@@ -1,0 +1,2 @@
+responseText: <+pipeline.variables.responseText>
+trafficGeneratorSleepTimer: <+pipeline.variables.trafficGeneratorSleepTimer>

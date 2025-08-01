@@ -1,0 +1,5 @@
+apiVersion: myDevOpsTeam
+kind: SillyConfigMapGenerator
+metadata:
+  name: whatever
+argsOneLiner: Bienvenue true

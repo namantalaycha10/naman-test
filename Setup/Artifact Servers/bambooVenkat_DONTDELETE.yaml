@@ -1,0 +1,5 @@
+harnessApiVersion: '1.0'
+type: BAMBOO
+password: gcpkms:passwordbamboo
+url: https://bamboo.dev.harness.io
+username: harnessadmin

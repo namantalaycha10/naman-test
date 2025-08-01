@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-traffic-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-traffic-generator
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-traffic-generator
+    spec:
+      containers:
+        - name: {{ .Values.name }}-traffic-generator
+          image: buoyantio/slow_cooker:1.3.0
+          command:
+            - "/bin/sh"
+          args:
+            - "-c"
+            - |
+              count_v1=0
+              count_v2=0
+              
+              sleep {{ .Values.trafficGeneratorSleepTimer }}
+              for i in $(seq 1 1000) 
+              do
+                  response=$(curl http://{{ .Values.name }}-svc:6060 | sed -n 's/.*"payload":"\([^"]*\)".*/\1/p')
+                  if [ "$response" = "v1" ]; then
+                      count_v1=$((count_v1 + 1))
+                  elif [ "$response" = "v2" ]; then
+                      count_v2=$((count_v2 + 1))
+                  fi
+                  echo "Response: $response"
+                  sleep 0.05
+              done
+              echo "DONE_COOKING"
+              echo "Number of v1 responses: $count_v1"
+              echo "Number of v2 responses: $count_v2"
+              sleep 5 # wait for pods to start
+              /slow_cooker/slow_cooker -qps 10 http://{{ .Values.name }}-svc:6060
+          ports:
+            - containerPort: 9999

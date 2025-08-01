@@ -1,0 +1,16 @@
+harnessApiVersion: '1.0'
+type: NEXUS
+url: https://nexus3.dev.harness.io
+usageRestrictions:
+  appEnvRestrictions:
+  - appFilter:
+      filterType: ALL
+    envFilter:
+      filterTypes:
+      - PROD
+  - appFilter:
+      filterType: ALL
+    envFilter:
+      filterTypes:
+      - NON_PROD
+version: 3.x

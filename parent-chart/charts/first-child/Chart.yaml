@@ -1,0 +1,11 @@
+apiVersion: v2
+name: first-child
+description: Helm chart for child chart.
+
+version: 0.0.1
+type: application
+
+dependencies:
+  - name: shared-lib
+    version: "1.0.0"
+    repository: file://../shared-lib

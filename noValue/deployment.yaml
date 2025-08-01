@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: harness-example-138
+  annotations:
+    harness.io/skip-versioning: true
+data:
+  key1: value1
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: harness-example-138
+  annotations:
+    harness.io/skip-versioning: true
+stringData:
+  key2: value2
+---
+
+  {{- if ${artifact.source.dockerconfig}}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: harness-example-138-dockercfg
+  annotations:
+    harness.io/skip-versioning: true
+data:
+  .dockercfg: {{${artifact.source.dockerconfig}}}
+type: kubernetes.io/dockercfg
+---
+  {{- end}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harness-example-138-deployment
+spec:
+  replicas: {{int 1}}
+  selector:
+    matchLabels:
+      app: harness-example-138
+  template:
+    metadata:
+      labels:
+        app: harness-example-138
+    spec:
+      {{- if ${artifact.source.dockerconfig}}}
+      imagePullSecrets:
+        - name: harness-example-138-dockercfg
+      {{- end}}
+      containers:
+        - name: harness-example-138
+          image: {{${artifact.metadata.image}}}
+          envFrom:
+          - configMapRef:
+              name: harness-example-138
+          - secretRef:
+              name: harness-example-138

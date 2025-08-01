@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kustomize-harness-test-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        patched: "true"
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:stable

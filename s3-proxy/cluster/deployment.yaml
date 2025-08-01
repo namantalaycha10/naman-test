@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3-proxy
+  annotations:
+    link.argocd.argoproj.io/git-commits: 'Commit history|https://github.com/tractableai/app-infra-s3-proxy/commits'
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: docker-registry
+      nodeSelector:
+        intent: general-apps
+      tolerations:
+        - key: 'spotInstance'
+          operator: 'Exists'
+          effect: 'PreferNoSchedule'

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tr-app-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tr-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: tr-app
+        version: v2
+    spec:
+      containers:
+        - name: tr-app
+          image: buoyantio/bb:v0.0.6
+          args:
+            - terminus
+            - "--h1-server-port=6060"
+            - "--response-text=v2"
+          ports:
+            - containerPort: 6060

@@ -1,0 +1,9 @@
+name: harness-deployment
+serviceName: harness-test-deployment
+serviceType: ClusterIP
+
+image: <+artifact.image>
+dockercfg: <+artifact.imagePullSecret>
+
+secretValue: <+stage.variables.secretVariable>
+nonSecretValue: <+stage.variables.nonSecretVariable>

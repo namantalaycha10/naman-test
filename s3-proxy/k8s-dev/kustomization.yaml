@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: app-infra
+
+commonLabels:
+  tags.datadoghq.com/env: k8s-dev
+
+resources:
+  - ../cluster/
+  - ingress.yml
+
+images:
+  - name: tractableio/app-infra-s3-proxy
+    newTag: <+artifact.tag>

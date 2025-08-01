@@ -1,0 +1,6 @@
+labels:
+  serviceOverride3: Service-Override-3
+  environmentAllOverride1: Service-Override-3
+  environmentAllOverride2: Service-Override-3
+  environmentSpecificOverride1: Service-Override-3
+  environmentSpecificOverride2: Service-Override-3

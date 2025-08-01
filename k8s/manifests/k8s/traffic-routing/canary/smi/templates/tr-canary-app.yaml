@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tr-canary-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tr-canary-app
+  template:
+    metadata:
+      labels:
+        app: tr-canary-app
+    spec:
+      containers:
+        - name: tr-canary-app
+          image: buoyantio/bb:v0.0.6
+          args:
+            - terminus
+            - "--h1-server-port=6060"
+            - "--response-text={{ .Values.responseText }}"
+          ports:
+            - containerPort: 6060

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kustomize-harness-test-svc
+# mandatory annotation indicating stage service
+  labels:
+    app: kustomize-harness-test
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: kustomize-harness-test
