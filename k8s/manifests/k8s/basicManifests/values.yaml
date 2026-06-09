@@ -1,4 +1,4 @@
-name: <+pipeline.variables.namePrefix>
+name: naman-unified-test
 replicas: 1
 createNamespace: true
 namespace: <+infra.namespace>
