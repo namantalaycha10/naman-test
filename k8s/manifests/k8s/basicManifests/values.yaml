@@ -3,7 +3,7 @@ replicas: 1
 createNamespace: true
 namespace: <+infra.namespace>
 
-image: harness/todolist-sample:130
+image: <+artifact.image>
 
 # Service Type allow you to specify what kind of service you want.
 # Possible values for ServiceType are:
