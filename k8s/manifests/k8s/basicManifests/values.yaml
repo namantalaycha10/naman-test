@@ -1,4 +1,4 @@
-name: naman-unified-test
+name: naman-local-unified-test
 replicas: 1
 createNamespace: true
 namespace: <+infra.namespace>
