@@ -1,0 +1,16 @@
+pipeline:
+  name: dewfr
+  identifier: dewfr
+  projectIdentifier: Brookes
+  orgIdentifier: Ng_Pipelines_K8s_Organisations
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Pipeline
+        spec:
+          org: Ng_Pipelines_K8s_Organisations
+          project: Brookes
+          pipeline: pipeline_priveledged
